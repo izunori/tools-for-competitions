@@ -1,13 +1,10 @@
-#!/usr/bin/bash
-problem='A B C D E F'
-
+#!/bin/bash
+problem='a b c d e f'
 for n in $problem
 do
 	script=./$n.py
 	if [ ! -f $script ]
 	then
-		cp ../initial.py ./$n.py
+		cp ../py_initial.py ./$n.py
 	fi
 done
-
-cp ../lib.py ./lib.py

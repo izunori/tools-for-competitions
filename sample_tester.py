@@ -1,36 +1,35 @@
 #!/usr/bin/python3
+import os
 import sys
 import subprocess
 from time import time
 from subprocess import PIPE
-PYEXE = "/cygdrive/d/application/Anaconda3/python.exe" 
+# Windows
+#PYEXE="/cygdrive/d/application/Anaconda3/python.exe" 
+# WSL
+PYEXE="/usr/bin/python3"
+print(os.name,PYEXE)
 script = sys.argv[1]
 print("test:{}".format(script))
 
+ini=script[2]
+sample_file="sample_"+ini+'.txt'
 Qs = []
 As = []
-with open('./example.txt','r') as f:
+with open(sample_file,'r') as f:
+    data = []
     for line in f:
-        q = []
-        a = []
-        if line.strip():
-            q.append(line)
-            for line in f:
-                if line.strip():
-                    q.append(line)
-                else:
-                    break
-            Qs.append(q)
-            for line in f:
-                if line.strip():
-                    break
-            a.append(line)
-            for line in f:
-                if line.strip():
-                    a.append(line)
-                else:
-                    break
-            As.append(a)
+        if "Input" in line:
+            As.append(data[:])
+            data = []
+            continue
+        if "Output" in line:
+            Qs.append(data[:])
+            data = []
+            continue
+        data.append(line)
+    As.append(data[:])
+As = As[1:]
 test = []
 times = []
 for n,(Q,A) in enumerate(zip(Qs,As)):
@@ -47,7 +46,7 @@ for n,(Q,A) in enumerate(zip(Qs,As)):
         test.append("RE")
         continue
 
-    out = out.decode().split('\r\n')[:-1]
+    out = out.decode().split('\n')[:-1]
 
     if not len(out) == len(A):
         print("ERROR : wrong output size")

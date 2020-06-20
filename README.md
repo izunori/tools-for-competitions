@@ -1,8 +1,11 @@
 .
-├── checker.py 各問題でのデバッグ用。出力はそのまま出力される。
-├── copy_and_subscribe.sh Windowsのクリップボードへのコピー
-├── example_getter.py クリップボードのWebページの全copyから問題を抜き出す。
-├── initializer.sh フォルダ初期化
-└── sample_tester.py sampleに対する全テスト
+├── README.md
+├── checker.py
+├── copy_and_subscribe.sh
+├── example_getter.py
+├── initializer.sh
+├── lib.py
+├── py_initial.py
+└── sample_tester.py
 
-0 directories, 5 files
+0 directories, 8 files

@@ -1,5 +1,6 @@
 import sys
-input = sys.stdin.buffer.readline
+#input = sys.stdin.buffer.readline
+input = sys.stdin.readline
 = input()
 = int(input())
 = map(int,input().split())
