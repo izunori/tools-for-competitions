@@ -18,7 +18,9 @@ from collections import Counter
 
 #### itertools
 from itertools import accumulate
-from itertools import product, permutations, combinations
+from itertools import permutations
+from itertools import product
+from itertools import combinations
 # list(itertools.permutations([1,2,3],2)) # => [(1,2),(1,3),(2,3),...]
 # list(itertools.product(["","+"],repeat=3))
 
@@ -53,7 +55,21 @@ AB = [list(map(int,input().split())) for i in range(N)]
 A, B = map(list,zip(*AB)) # flatten
 
 def dpinit(ps, val=0):
+    import copy
     res = [val for i in [0]*ps[-1]]
     for i in ps[:-1][::-1]:
-        res = [res[:] for k in [0]*i]
+        res = [copy.deepcopy(res) for k in [0]*i]
     return res
+
+def dprint(*args,dic=globals()):
+    p = []
+    for arg in args:
+        for k,v in dic.items():
+            if id(v) == id(arg):
+                p.append(f"{k}:{v}")
+    print(*p)
+
+# power set
+from itertools import chain, combinations
+s = [1,2,3]
+chain.from_iterable(combinations(s,r) for r in range(len(s)+1))

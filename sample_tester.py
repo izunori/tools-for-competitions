@@ -4,12 +4,9 @@ import sys
 import subprocess
 from time import time
 from subprocess import PIPE
-# Windows
-#PYEXE="/cygdrive/d/application/Anaconda3/python.exe" 
-# WSL
-PYEXE="/usr/bin/python3"
-print(os.name,PYEXE)
+from config import *
 script = sys.argv[1]
+print(PYEXE)
 print("test:{}".format(script))
 
 ini=script[2]
