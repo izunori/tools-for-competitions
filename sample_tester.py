@@ -5,11 +5,17 @@ import subprocess
 from time import time
 from subprocess import PIPE
 from config import *
+from command_creator import createCommand
 script = sys.argv[1]
 print(PYEXE)
 print("test:{}".format(script))
 
-ini=script[2]
+preprocess, command = createCommand(script)
+print("- Preprocess...")
+preprocess()
+print("- Preprocess done")
+
+ini=script[2] # first character of script
 sample_file="sample_"+ini+'.txt'
 Qs = []
 As = []
@@ -26,12 +32,13 @@ with open(sample_file,'r') as f:
             continue
         data.append(line)
     As.append(data[:])
+
+
 As = As[1:]
 test = []
 times = []
 for n,(Q,A) in enumerate(zip(Qs,As)):
-    print("s{}".format(n+1))
-    p = subprocess.Popen([PYEXE,script],stdout=PIPE,stdin=PIPE,stderr=PIPE)
+    p = subprocess.Popen(command,stdout=PIPE,stdin=PIPE,stderr=PIPE,shell=True)
     data = str.encode("".join(Q))
     start = time()
     out, error = p.communicate(input=data)

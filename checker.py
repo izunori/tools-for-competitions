@@ -5,10 +5,17 @@ import subprocess
 from time import time
 from subprocess import PIPE
 from config import *
+from command_creator import createCommand
 
 print(PYEXE)
 
 script = sys.argv[1]
+
+preprocess, command = createCommand(script)
+print("- Preprocess...")
+preprocess()
+print("- Preprocess done")
+
 num = int(sys.argv[2])
 if len(sys.argv) > 3:
     ts = float(sys.argv[3])
@@ -44,7 +51,7 @@ print("".join(Q).strip())
 print("answer:")
 print("".join(A).strip())
 
-p = subprocess.Popen([PYEXE,script],stdout=PIPE,stdin=PIPE,stderr=PIPE)
+p = subprocess.Popen(command,stdout=PIPE,stdin=PIPE,stderr=PIPE,shell=True)
 data = str.encode("".join(Q))
 start = time()
 try:
