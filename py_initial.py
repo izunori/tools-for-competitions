@@ -1,6 +1,10 @@
 import sys
-from itertools import combinations, permutations, product, accumulate
+import pypyjit
+pypyjit.set_param('max_unroll_recursion=-1')
+from itertools import combinations, permutations, product, accumulate, groupby
 from collections import defaultdict, deque, Counter
+from functools import reduce
+from operator import add, mul
 import heapq as hq
 import bisect
 sys.setrecursionlimit(10**7)

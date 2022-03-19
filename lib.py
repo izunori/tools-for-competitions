@@ -68,6 +68,21 @@ def dprint(*args,dic=globals()):
             if id(v) == id(arg):
                 p.append(f"{k}:{v}")
     print(*p)
+class M1:
+    def __init__(self, dims):
+        self.offset = [1]
+        for d in dims[::-1][:-1]:
+            self.offset.append(self.offset[-1]*d)
+        self.offset.reverse()
+    def getIndex(self, pt):
+        return sum(starmap(mul, zip(pt,self.offset)))
+    def getPoint(self, index):
+        res = []
+        for ofs in self.offset:
+            res.append(index//ofs)
+            index -= res[-1]*ofs
+        return res
+
 
 # power set
 from itertools import chain, combinations
