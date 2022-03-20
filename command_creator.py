@@ -15,10 +15,17 @@ def createCommand(script):
         out = root+'.exe'
         preprocess = lambda : subprocess.run(f'fsharpc {script}',shell=True)
         command = f"mono {out}"
+    elif ext == '.cpp':
+        out = './cppout'
+        run = f"g++ -O2 --std=gnu++17 {script} -o {out}"
+        preprocess = lambda : subprocess.run(run,shell=True)
+        command = f"{out}"
+
     else:
         print("Not supported script type")
         exit()
 
+    print("command : ", command)
     return preprocess, command
     
 

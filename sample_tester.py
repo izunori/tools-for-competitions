@@ -7,7 +7,6 @@ from subprocess import PIPE
 from config import *
 from command_creator import createCommand
 script = sys.argv[1]
-print(PYEXE)
 print("test:{}".format(script))
 
 preprocess, command = createCommand(script)
