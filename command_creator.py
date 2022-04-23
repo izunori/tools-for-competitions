@@ -20,7 +20,11 @@ def createCommand(script):
         run = f"g++ -O2 --std=gnu++17 {script} -o {out}"
         preprocess = lambda : subprocess.run(run,shell=True)
         command = f"{out}"
-
+    elif ext == '.nim':
+        out = './nimout'
+        run = f'nim -d:release --opt:speed -o:{out} c {script}'
+        preprocess = lambda : subprocess.run(run,shell=True)
+        command = f"{out}"
     else:
         print("Not supported script type")
         exit()
