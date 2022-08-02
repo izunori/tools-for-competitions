@@ -7,6 +7,9 @@ def createCommand(script):
     if ext == '.py':
         preprocess = lambda : ()
         command = f"{PYEXE} {script}"
+    elif ext == '.scm':
+        preprocess = lambda : ()
+        command = f"guile -ds {script}"
     elif ext == '.kt':
         out = root+'.jar'
         preprocess = lambda : subprocess.run(f'kotlinc {script} -include-runtime -d {out}',shell=True)

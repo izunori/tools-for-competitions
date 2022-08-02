@@ -21,7 +21,13 @@ T pow(T p, T n, T m){
     return res;
 }
 template<typename T>
-inline auto range(T first, T last, T step = 1){return boost::irange(first, last, step);}
+inline auto range(T first, T last=-1, T step = 1){
+    if(last == -1){
+        return boost::irange(0, first, step);
+    } else {
+        return boost::irange(first, last, step);
+    }
+}
 
 int main(){
     std::cin >> N >> X >> Y >> Z;
