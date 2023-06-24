@@ -44,13 +44,26 @@ template<typename T>
 void print(const T& v){
     std::cout << v;
 }
+template<typename... T>
+void print(const std::tuple<T...>& tp);
 template<typename T>
 void print(const std::vector<T>& vs){
     std::cout << "[";
     rep(i, vs.size()){
-        print(vs[i]); if(i < vs.size()-1) print(",");
+        if(i > 0) print(",");
+        print(vs[i]);
     }
     std::cout << "]";
+}
+template<typename TupType, size_t... I>
+void print(const TupType& tp, std::index_sequence<I...>){
+    std::cout << "(";
+    (..., (print(I==0? "" : ","), print(std::get<I>(tp))));
+    std::cout << ")";
+}
+template<typename... T>
+void print(const std::tuple<T...>& tp){
+    print(tp, std::make_index_sequence<sizeof...(T)>());
 }
 template<class T, class... A> void print(const T& first, const A&... rest) { print(first); print(","); print(rest...); }
 
@@ -64,7 +77,7 @@ void dprint(const T&... rest){
 template<typename T>
 void vprint(std::vector<T>& vs){
     for(const auto& v : vs){
-        _print(v);
+        std::cout << v << " ";
     }
     std::cout << std::endl;
 }
@@ -83,10 +96,17 @@ int randbool(){
     return mt() & 1;
 }
 
+// functions
+
+void initialize(){
+}
+void deconstruct(){
+}
+
+// main
+
 int main(){
-    dprint("score:", 50, "hoge");
-    vec<int> v{1,2,3};
-    vec<vec<int>> v2{{1,2},{3,4,5}};
-    dprint(v,v2);
+    initialize();
+    deconstruct();
     return 0;
 }
