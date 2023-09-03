@@ -8,8 +8,8 @@ fi
 echo target: ${DIR}
 echo "input,score" > ./all_result.csv
 parallel_run() {
-    echo 00$1.txt
-    ./out < ./$2/00$1.txt > ./log/00$1.log
+    echo $1.txt
+    ./out < ./$2/$1.txt > ./log/$1.log
 }
 #for num in $(seq -w 0 99)
 #do
@@ -28,19 +28,20 @@ parallel_run() {
 #done
 
 export -f parallel_run
-seq -w 0 99 | xargs -I@ -P4 -n1 bash -c "parallel_run @ ${DIR}"
+seq -f "%04g" 0 99 | xargs -I@ -P4 -n1 bash -c "parallel_run @ ${DIR}"
 
-for num in $(seq -w 0 99)
+for num in $(seq -f "%04g" 0 99)
 do
-    num="00${num}"
+    num="${num}"
     input=${DIR}/${num}.txt
-    SCORE=$(tail -n1 ./log/${num}.log | sed 's/^.*://g')
+    grep ':' ./log/${num}.log > log_short.log
+    SCORE=$(tail -n1 ./log_short/${num}.log | sed 's/^.*://g')
     TXT="${input},${SCORE}"
     echo ${TXT}
     echo ${TXT} >> ./all_result.csv
 done
 
-sum=$(awk '{sum+=$2} END {print sum}' ./all_result.csv)
+sum=$(awk -F, '{sum+=$2} END {print sum}' ./all_result.csv)
 echo ",sum, ${sum}"
 echo ",sum,${sum}" >> ./all_result.csv
 
