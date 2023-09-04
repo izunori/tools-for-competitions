@@ -9,6 +9,8 @@
 #include<queue>
 #include<random>
 #include<numeric>
+#include<functional>
+#include<stack>
 
 #define rep(i, n) for (int i = 0; i < (int)n; i++)
 #define rep2(i,j,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++)
