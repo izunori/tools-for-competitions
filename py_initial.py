@@ -3,6 +3,7 @@ import sys
 import pypyjit
 pypyjit.set_param('max_unroll_recursion=-1')
 from itertools import combinations, permutations, product, accumulate, groupby
+from more_itertools import chunked, windowed, distribute, substrings, powerset
 from collections import defaultdict, deque, Counter
 from functools import reduce, cmp_to_key
 from operator import add, mul, itemgetter
