@@ -8,4 +8,6 @@ fi
 #pypy3 ./a.py < ${INPUT} > result.txt
 ./out < ${INPUT} 2>&1 |tee  result.txt
 
-grep -v '#' ./result.txt | iconv -f ISO2022JP -t UTF-16le | /mnt/c/WINDOWS/system32/clip.exe
+cat ./result.txt | /mnt/c/WINDOWS/system32/clip.exe
+#grep -v '#' ./result.txt | iconv -f ISO2022JP -t UTF-16le | /mnt/c/WINDOWS/system32/clip.exe
+
