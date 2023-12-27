@@ -21,10 +21,10 @@ export -f parallel_run
 ls -1 ${DIR}/*.txt | xargs -I@ -P10 -n1 bash -c "parallel_run @ ${DIR}"
 
 MAX=99
-ORDER=$(cat ./order.txt)
-for LOG in ${ORDER}
-#for num in $(seq -f "%04g" 0 ${MAX})
-#do
+#ORDER=$(cat ./order.txt)
+#for LOG in ${ORDER}
+for num in $(seq -f "%04g" 0 ${MAX})
+do
     LOG=./log/${num}.log
     #TXT=${INPUT},$(python3 ./getLogInfo.py ./log/${num}.log N D Q score)
     TXT=$(python3 ./getLogInfo.py ${LOG} diff score)
