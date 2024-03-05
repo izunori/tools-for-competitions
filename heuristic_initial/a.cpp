@@ -1,3 +1,9 @@
+#pragma GCC optimize("O3,inline")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
+#pragma GCC target("movbe")
+#pragma GCC target("aes,pclmul,rdrnd")
 #include<iostream>
 #include<vector>
 #include<string>
@@ -13,6 +19,9 @@
 #include<stack>
 #include<cassert>
 #include<cmath>
+#include<cstring>
+#include<unordered_set>
+#include<unordered_map>
 
 #define rep(i, n) for (int i = 0; i < (int)n; i++)
 #define rep2(i,j,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++)
@@ -32,7 +41,7 @@ using t3 = std::tuple<T, T, T>;
 using clk = std::chrono::system_clock;
 
 template<int k>
-constexpr double p10_k = std::pow(10, k);
+const double p10_k = std::pow(10, k);
 
 // global
 
@@ -93,16 +102,35 @@ double getElapsed(clk::time_point& start, clk::time_point& end){
     return (std::chrono::duration<double, std::milli>(end-start)).count() / p10_k<3>;
 }
 
+template<typename T>
+size_t argmax(vec<T>& v){
+    T mx = std::numeric_limits<T>::lowest();
+    size_t mi = 0;
+    const int vsize = v.size();
+    rep(i,vsize){
+        if(mx < v[i]){
+            mx = v[i]; mi = i;
+        }
+    }
+    return mi;
+}
+
 vec<int> range(int n){
     vec<int> v(n);
     std::iota(all(v), 0);
     return v;
 }
 
-int randint(int size){
-    int a = mt() % size;
-    if(a<0) a += size;
-    return a;
+uint32_t xorShift() {
+  static uint32_t y = 2463534242;
+  y = y ^ (y << 13); y = y ^ (y >> 17);
+  return y = y ^ (y << 5);
+}
+
+uint32_t randint(uint32_t size){
+    uint32_t a = mt();
+    uint64_t m = (uint64_t)a * (uint64_t) size;
+    return m >> 32;
 }
 
 vec<int> sample(int mx, int num){
