@@ -103,6 +103,13 @@ double getElapsed(clk::time_point& start, clk::time_point& end){
 }
 
 template<typename T>
+T sum(vec<T>& v){
+    T res = 0;
+    for(const auto x: v) res += x;
+    return res;
+}
+
+template<typename T>
 size_t argmax(vec<T>& v){
     T mx = std::numeric_limits<T>::lowest();
     size_t mi = 0;
