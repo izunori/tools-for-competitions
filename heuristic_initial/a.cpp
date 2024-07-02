@@ -22,6 +22,7 @@
 #include<cstring>
 #include<unordered_set>
 #include<unordered_map>
+#include<ranges>
 
 #define rep(i, n) for (int i = 0; i < (int)n; i++)
 #define rep2(i,j,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++)
@@ -165,8 +166,21 @@ vec<int> getOrderOf(vec<T>& v){
 }
 
 // functions
+const int LOG_TABLE_SIZE = 1 << 14;
+double log_table[LOG_TABLE_SIZE];
+inline double log_rand() {
+    static int idx = 0;
+    if (idx == LOG_TABLE_SIZE) {
+        idx = 0;
+    }
+    return log_table[idx++];
+}
 
 void initialize(){
+    start_time = clk::now();
+    for (int i = 0; i < LOG_TABLE_SIZE; i++) {
+        log_table[i] = log(rand01(mt));
+    }
 }
 void deconstruct(){
 }
