@@ -25,6 +25,7 @@
 #include<ranges>
 
 #define rep(i, n) for (int i = 0; i < (int)n; i++)
+#define reps(i, s, n) for (int i = s; i < (int)n; i++)
 #define rep2(i,j,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++)
 #define rep3(i,j,k,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++) for (int k= 0; k < (int)n; k++)
 #define all(v) v.begin(),v.end()
