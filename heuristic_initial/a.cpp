@@ -87,6 +87,7 @@ template<class T, class... A> void print(const T& first, const A&... rest) { pri
 
 template<class... T>
 void dprint(const T&... rest){
+    if(!local) return;
     std::cout << "# ";
     print(rest...);
     std::cout << "\n";
@@ -190,6 +191,11 @@ void deconstruct(){
 
 int main(){
     initialize();
+    if(local){
+        auto end_time = clk::now();
+        double elapsed = getElapsed(start_time, end_time);
+        dprint("time:", elapsed);
+    }
     deconstruct();
     return 0;
 }
