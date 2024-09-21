@@ -58,12 +58,8 @@ clk::time_point start_time;
 
 // utils
 
-template<typename T>
-void print(const T& v){
-    std::cout << v;
-}
-template<typename... T>
-void print(const std::tuple<T...>& tp);
+template<typename T> void print(const T& v){ std::cout << v; }
+template<typename... T> void print(const std::tuple<T...>& tp);
 template<typename T>
 void print(const std::vector<T>& vs){
     std::cout << "[";
@@ -84,7 +80,6 @@ void print(const std::tuple<T...>& tp){
     print(tp, std::make_index_sequence<sizeof...(T)>());
 }
 template<class T, class... A> void print(const T& first, const A&... rest) { print(first); print(" "); print(rest...); }
-
 template<class... T>
 void dprint(const T&... rest){
     if(!local) return;
@@ -93,27 +88,19 @@ void dprint(const T&... rest){
     std::cout << "\n";
 }
 
-template<typename T>
-void vprint(std::vector<T>& vs){
-    for(const auto& v : vs){
-        std::cout << v << " ";
-    }
-    std::cout << std::endl;
-}
-
-double getElapsed(clk::time_point& start, clk::time_point& end){
-    return (std::chrono::duration<double, std::milli>(end-start)).count() / p10_k<3>;
+double getElapsed(const clk::time_point& start, const clk::time_point& end){
+    return (std::chrono::duration<double, std::milli>(end-start)).count() / 1000;
 }
 
 template<typename T>
-T sum(vec<T>& v){
+T sum(const vec<T>& v){
     T res = 0;
     for(const auto x: v) res += x;
     return res;
 }
 
 template<typename T>
-size_t argmax(vec<T>& v){
+std::tuple<size_t,T> argmax(const vec<T>& v){
     T mx = std::numeric_limits<T>::lowest();
     size_t mi = 0;
     const int vsize = v.size();
@@ -122,10 +109,23 @@ size_t argmax(vec<T>& v){
             mx = v[i]; mi = i;
         }
     }
-    return mi;
+    return {mi, mx};
 }
 
-vec<int> range(int n){
+template<typename T>
+std::tuple<size_t,T> argmin(const vec<T>& v){
+    T mx = std::numeric_limits<T>::max();
+    size_t mi = 0;
+    const int vsize = v.size();
+    rep(i,vsize){
+        if(mx > v[i]){
+            mx = v[i]; mi = i;
+        }
+    }
+    return {mi, mx};
+}
+
+vec<int> range(const int n){
     vec<int> v(n);
     std::iota(all(v), 0);
     return v;
@@ -137,7 +137,7 @@ uint32_t xorShift() {
   return y = y ^ (y << 5);
 }
 
-uint32_t randint(uint32_t size){
+uint32_t randint(const uint32_t size){
     uint32_t a = mt();
     uint64_t m = (uint64_t)a * (uint64_t) size;
     return m >> 32;

@@ -28,13 +28,13 @@ do
     LOG=./log/${num}.txt
     #TXT=${INPUT},$(python3 ./getLogInfo.py ./log/${num}.log N D Q score)
     #TXT=$(python3 ./getLogInfo.py ${LOG} score)
-    TXT=$(python3 ./getLogInfo.py ${LOG} N M EPS sumV numV score)
+    TXT=$(python3 ./getLogInfo.py ${LOG} score)
     echo ${LOG},${TXT}
-    echo ${LOG},${TXT} >> ./all_result.csv
+    echo ${TXT} >> ./all_result.csv
 done
 
 sum=$(awk -F, '{sum+=$NF} END {print sum}' ./all_result.csv)
-diff=$(awk -F, '{sum+=$1} END {print sum}' ./all_result.csv)
+#diff=$(awk -F, '{sum+=$1} END {print sum}' ./all_result.csv)
 echo "${sum}"
 echo "${sum}" >> ./all_result.csv
 
