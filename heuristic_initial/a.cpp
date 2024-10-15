@@ -23,6 +23,8 @@
 #include<unordered_set>
 #include<unordered_map>
 #include<ranges>
+#include<bitset>
+#include<bit>
 
 #define rep(i, n) for (int i = 0; i < (int)n; i++)
 #define reps(i, s, n) for (int i = s; i < (int)n; i++)
