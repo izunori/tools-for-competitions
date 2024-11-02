@@ -28,6 +28,7 @@
 
 #define rep(i, n) for (int i = 0; i < (int)n; i++)
 #define reps(i, s, n) for (int i = s; i < (int)n; i++)
+#define repv(x, v) for (const auto& x : v)
 #define rep2(i,j,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++)
 #define rep3(i,j,k,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++) for (int k= 0; k < (int)n; k++)
 #define all(v) v.begin(),v.end()
@@ -36,6 +37,9 @@ template<typename T>
 using vec = std::vector<T>;
 template<typename T>
 using vec2 = vec<vec<T>>;
+template<typename T>
+using vec3 = vec<vec2<T>>;
+using ull = unsigned long long;
 using ll = long long;
 template<typename T>
 using t2 = std::tuple<T, T>;
@@ -50,7 +54,7 @@ const double p10_k = std::pow(10, k);
 
 // global
 
-constexpr bool local = false;
+constexpr bool local = true;
 std::map<std::string, std::string> LOG;
 
 std::random_device rnd;
@@ -63,6 +67,10 @@ clk::time_point start_time;
 
 template<typename T> void print(const T& v){ std::cout << v; }
 template<typename... T> void print(const std::tuple<T...>& tp);
+template<typename T>
+void print(const std::pair<T,T>& p){
+    std::cout << "(" << p.first << " " << p.second << ")";
+}
 template<typename T>
 void print(const std::vector<T>& vs){
     std::cout << "[";
@@ -194,6 +202,8 @@ void deconstruct(){
 
 int main(){
     initialize();
+    i2 a{1,2};
+    dprint(a);
     if(local){
         auto end_time = clk::now();
         double elapsed = getElapsed(start_time, end_time);
