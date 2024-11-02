@@ -6,5 +6,6 @@ do
 	if [ ! -f $script ]
 	then
 		cp ../py_initial.py ./$n.py
+		cp ../cpp_initial.cpp ./$n.cpp
 	fi
 done

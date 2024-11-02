@@ -28,6 +28,7 @@
 
 #define rep(i, n) for (int i = 0; i < (int)n; i++)
 #define reps(i, s, n) for (int i = s; i < (int)n; i++)
+#define repv(x, v) for (const auto& x : v)
 #define rep2(i,j,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++)
 #define rep3(i,j,k,n) for (int i = 0; i < (int)n; i++) for (int j = 0; j < (int)n; j++) for (int k= 0; k < (int)n; k++)
 #define all(v) v.begin(),v.end()
@@ -37,6 +38,7 @@ using vec = std::vector<T>;
 template<typename T>
 using vec2 = vec<vec<T>>;
 using ll = long long;
+using ull = unsigned long long;
 template<typename T>
 using t2 = std::tuple<T, T>;
 using i2 = std::pair<int,int>;
@@ -83,19 +85,14 @@ void dprint(const T&... rest){
 }
 
 template<typename T>
-vec<T> LI(int n){
-    vec<T> res;
-    rep(i,n){
-        T x; std::cin >> x; res.push_back(x);
-    }
-    return res;
+void vprint(vec<T>& v){
+    for(const auto& x : v) std::cout << x << " ";
+    std::cout << std::endl;
 }
 
-template<typename T>
-vec<T> LI2(int n, int m){
-    vec2<T> res;
-    rep(i,n) res.emplace_back(LI<T>(m));
-    return res;
+template<typename T = ull>
+T input(){
+    T x; std::cin >> x; return x;
 }
 
 // main

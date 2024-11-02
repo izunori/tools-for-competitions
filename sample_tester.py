@@ -58,6 +58,7 @@ for n,(Q,A) in enumerate(zip(Qs,As)):
 
     correct = True 
     for o,a in zip(out,A):
+        o = o.strip()
         a = a.strip()
         if o == a:
             print("  {} == {}".format(o,a))
