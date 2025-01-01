@@ -3,3 +3,6 @@
 out
 input.txt
 result.txt
+/tools
+*.zip
+*.ods

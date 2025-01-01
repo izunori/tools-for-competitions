@@ -62,29 +62,30 @@ std::mt19937 mt(rnd());
 std::uniform_real_distribution<> rand01(0.0, 1.0);
 
 clk::time_point start_time;
+std::ofstream ofstr; // result file
 
 // utils
 
-template<typename T> void print(const T& v){ std::cout << v; }
+template<typename T> void print(const T& v){ std::cerr << v; }
 template<typename... T> void print(const std::tuple<T...>& tp);
 template<typename T>
 void print(const std::pair<T,T>& p){
-    std::cout << "(" << p.first << " " << p.second << ")";
+    std::cerr << "(" << p.first << " " << p.second << ")";
 }
 template<typename T>
 void print(const std::vector<T>& vs){
-    std::cout << "[";
+    std::cerr << "[";
     rep(i, vs.size()){
         if(i > 0) print(" ");
         print(vs[i]);
     }
-    std::cout << "]";
+    std::cerr << "]";
 }
 template<typename TupType, size_t... I>
 void print(const TupType& tp, std::index_sequence<I...>){
-    std::cout << "(";
+    std::cerr << "(";
     (..., (print(I==0? "" : " "), print(std::get<I>(tp))));
-    std::cout << ")";
+    std::cerr << ")";
 }
 template<typename... T>
 void print(const std::tuple<T...>& tp){
@@ -94,9 +95,9 @@ template<class T, class... A> void print(const T& first, const A&... rest) { pri
 template<class... T>
 void dprint(const T&... rest){
     if(!local) return;
-    std::cout << "# ";
+    std::cerr << "# ";
     print(rest...);
-    std::cout << "\n";
+    std::cerr << "\n";
 }
 
 double getElapsed(const clk::time_point& start, const clk::time_point& end){
@@ -190,6 +191,13 @@ inline double log_rand() {
 }
 
 void initialize(){
+    if(local){
+        ofstr = std::ofstream("./result.txt");
+        std::ios_base::sync_with_stdio(false);
+        std::cin.tie(0);
+        auto original_buf = std::cout.rdbuf();
+        std::cout.rdbuf(ofstr.rdbuf());
+    }
     start_time = clk::now();
     for (int i = 0; i < LOG_TABLE_SIZE; i++) {
         log_table[i] = log(rand01(mt));
