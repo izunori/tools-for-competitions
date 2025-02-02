@@ -5,6 +5,7 @@
 #pragma GCC target("movbe")
 #pragma GCC target("aes,pclmul,rdrnd")
 #include<iostream>
+#include<fstream>
 #include<vector>
 #include<string>
 #include<tuple>
