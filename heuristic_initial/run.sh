@@ -6,7 +6,7 @@ else
     INPUT="./input.txt"
 fi
 #pypy3 ./a.py < ${INPUT} > result.txt
-stdbuf --output=L ./out < ${INPUT} 2>&1 |tee  result.txt
+stdbuf --output=L ./out < ${INPUT} 2>&1
 
 #cat ./result.txt | /mnt/c/WINDOWS/system32/clip.exe
 grep -v '#' ./result.txt | /mnt/c/WINDOWS/system32/clip.exe
