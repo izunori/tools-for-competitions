@@ -12,7 +12,7 @@ parallel_run() {
     FILE=$1
     echo ${FILE}
     NUM=${FILE: -8:8}
-    ./out < $1 > ./log/${NUM}
+    ./out < $1 2> ./log/${NUM}
 }
 
 export -f parallel_run
