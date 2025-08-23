@@ -4,6 +4,9 @@
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 #pragma GCC target("movbe")
 #pragma GCC target("aes,pclmul,rdrnd")
+#ifdef ATCODER
+#pragma GCC target("arch=skylake-avx512")
+#endif
 #include<iostream>
 #include<fstream>
 #include<vector>
@@ -26,6 +29,12 @@
 #include<ranges>
 #include<bitset>
 #include<bit>
+#include<cstdlib>
+#include<memory>
+#include<stdexcept>
+#ifdef __GNUG__
+#include <immintrin.h>
+#endif
 
 #define rep(i, n) for (int i = 0; i < (int)n; i++)
 #define reps(i, s, n) for (int i = s; i < (int)n; i++)
@@ -55,7 +64,11 @@ const double p10_k = std::pow(10, k);
 
 // global
 
+#ifdef IS_LOCAL
 constexpr bool local = true;
+#else
+constexpr bool local = false;
+#endif
 std::map<std::string, std::string> LOG;
 
 std::random_device rnd;
@@ -151,7 +164,7 @@ uint32_t xorShift() {
 }
 
 uint32_t randint(const uint32_t size){
-    uint32_t a = mt();
+    uint32_t a = xorShift();
     uint64_t m = (uint64_t)a * (uint64_t) size;
     return m >> 32;
 }
@@ -168,7 +181,7 @@ vec<int> sample(int mx, int num){
 }
 
 int randbool(){
-    return mt() & 1;
+    return xorShift() & 1;
 }
 
 template<typename T>

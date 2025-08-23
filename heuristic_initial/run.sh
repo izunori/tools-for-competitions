@@ -5,6 +5,9 @@ then
 else
     INPUT="./input.txt"
 fi
+
+export IS_LOCAL=true
+
 #pypy3 ./a.py < ${INPUT} > result.txt
 stdbuf --output=L ./out < ${INPUT} 2>&1
 
