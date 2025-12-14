@@ -57,7 +57,7 @@ using i2 = std::pair<int,int>;
 template<typename T>
 using t3 = std::tuple<T, T, T>;
 using i3 = t3<int>;
-using clk = std::chrono::system_clock;
+using clk = std::chrono::steady_clock;
 
 template<int k>
 const double p10_k = std::pow(10, k);
