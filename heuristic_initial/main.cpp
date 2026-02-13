@@ -82,8 +82,8 @@ std::ofstream ofstr; // result file
 
 template<typename T> void print(const T& v){ std::cerr << v; }
 template<typename... T> void print(const std::tuple<T...>& tp);
-template<typename T>
-void print(const std::pair<T,T>& p){
+template<typename S, typename T>
+void print(const std::pair<S,T>& p){
     std::cerr << "(" << p.first << " " << p.second << ")";
 }
 template<typename T>
